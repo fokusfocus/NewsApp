@@ -79,41 +79,6 @@ public class NewsActivity extends AppCompatActivity
         //start and check network call
         startNetworkCall();
 
-        //find button view and set it to open link in browser
-        Button urlButton = (Button) findViewById(R.id.url_link);
-        urlButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //start and check network call
-                startNetworkCall();
-
-                //opening URL in a browser
-                System.out.println("this should open URL in a browser");
-
-                //to load again after opening URL in browser
-                getLoaderManager().restartLoader(BOOK_LOADER_ID, null, NewsActivity.this);
-            }
-        });
-
-        //find ImageButton view on set it to listen to search query
-        ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
-        searchButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-                //start and check network call
-                startNetworkCall();
-
-                //find the search field text
-                EditText searchField = (EditText) findViewById(R.id.search_phrases);
-                tempResult = searchField.getText().toString();
-                System.out.println(">>>>>>>>>>>>>>> " + tempResult); //to test and see if the result updates correctly
-                //to load again after pulling in new search queries
-                getLoaderManager().restartLoader(BOOK_LOADER_ID, null, NewsActivity.this);
-            }
-        });
-
     }
 
     @Override
