@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.booklistapp;
+package com.example.android.newsapp;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -25,9 +25,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,14 +36,11 @@ public class NewsActivity extends AppCompatActivity
 
     private static final String LOG_TAG = NewsActivity.class.getName();
 
-    /** URL for book data from the Google Books API */
-    private final String BOOK_REQUEST_URL = "https://www.googleapis.com/books/v1/volumes?q=";
-
     /**
      * Constant value for the earthquake loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
-    private static final int BOOK_LOADER_ID = 1;
+    private static final int NEWS_LOADER_ID = 1;
 
     /** Adapter for the list of earthquakes */
     private NewsAdapter mAdapter;
@@ -54,7 +48,7 @@ public class NewsActivity extends AppCompatActivity
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
-    private String tempResult = "";
+    //placeolder for query from Guardian API
     private String NEWS_REQUEST_URL = "http://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
 
     @Override
@@ -64,17 +58,17 @@ public class NewsActivity extends AppCompatActivity
 
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        ListView newsListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-        earthquakeListView.setEmptyView(mEmptyStateTextView);
+        newsListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of earthquakes as input
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(mAdapter);
+        newsListView.setAdapter(mAdapter);
 
         //start and check network call
         startNetworkCall();
@@ -83,13 +77,6 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        String SEARCH_PHRASE = tempResult;
-        //String SEARCH_PHRASE = searchField.getText().toString();
-        if (SEARCH_PHRASE.length()>0) {
-            SEARCH_PHRASE = SEARCH_PHRASE.replace(" ", "+");
-        }
-        //To test if the URL is contructed properly
-        System.out.println(BOOK_REQUEST_URL + SEARCH_PHRASE);
 
         // Create a new loader for the given URL
         return new NewsLoader(this, NEWS_REQUEST_URL);
@@ -146,7 +133,7 @@ public class NewsActivity extends AppCompatActivity
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
-            loaderManager.initLoader(BOOK_LOADER_ID, null, NewsActivity.this);
+            loaderManager.initLoader(NEWS_LOADER_ID, null, NewsActivity.this);
 
         } else {
             // Otherwise, display error

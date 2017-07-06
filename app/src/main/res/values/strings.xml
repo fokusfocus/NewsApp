@@ -22,7 +22,7 @@
     <string name="near_the">Near the</string>
 
     <!-- Text to display in the list when there are no newses [CHAR LIMIT=NONE] -->
-    <string name="no_books">No newses found.</string>
+    <string name="no_books">No news found.</string>
 
     <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
     <string name="no_internet_connection">No internet connection.</string>

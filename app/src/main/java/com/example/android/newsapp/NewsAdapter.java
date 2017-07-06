@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.booklistapp;
+package com.example.android.newsapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -40,6 +43,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
      * @param newses is the list of newses, which is the data source of the adapter
      */
     public NewsAdapter(Context context, List<News> newses) {
+
         super(context, 0, newses);
     }
 
@@ -57,20 +61,35 @@ public class NewsAdapter extends ArrayAdapter<News> {
                     R.layout.news_list_item, parent, false);
         }
 
-        // Find the earthquake at the given position in the list of earthquakes
-        News currentNews = getItem(position);
+        // Find the news article at the given position in the list of news articles
+        final News currentNews = getItem(position);
 
 
         //find the TextView with view ID news_title, map it to title
         TextView titleView = (TextView) listItemView.findViewById(R.id.news_title);
-        titleView.setText(currentNews.getBookTitle());
+        titleView.setText(currentNews.getNewsTitle());
 
         //find the TextView with view ID section_name, map it to sectionName
         TextView sectionNameView = (TextView) listItemView.findViewById(R.id.section_name);
-        sectionNameView.setText(currentNews.getBookPublisher());
+        sectionNameView.setText(currentNews.getNewsSection());
 
+        //find the TextView with view ID web_url, map it to web_url
         TextView urlView = (TextView)  listItemView.findViewById(R.id.web_url);
         urlView.setText(currentNews.getNewsUrl());
+
+        Button urlButton = (Button) listItemView.findViewById(R.id.url_link);
+        urlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //opening URL in a browser
+                //System.out.println("this should open URL in a browser"); FOR TESTING
+                String url = currentNews.getNewsUrl();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                v.getContext().startActivity(intent);
+
+            }
+        });
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

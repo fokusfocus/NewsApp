@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.booklistapp;
+package com.example.android.newsapp;
 
 /**
  * An {@link News} object contains information related to a single earthquake.
@@ -29,42 +29,32 @@ public class News {
     //url of the article
     private String mNewsUrl;
 
-    //author of book(s)
-    private StringBuilder mBookAuthor;
-
-
     //constructor for book
-    public News(String newsTitle, String newsSection, String newsUrl, StringBuilder bookAuthor) {
+    public News(String newsTitle, String newsSection, String newsUrl) {
 
         mNewsTitle = newsTitle;
         mNewsSection = newsSection;
         mNewsUrl = newsUrl;
-
-        mBookAuthor =bookAuthor;
     }
 
 
 
     //getter for the title of the book
-    public String getBookTitle() {
+    public String getNewsTitle() {
 
         return mNewsTitle;
     }
 
     //getter the publisher of the book
-    public  String getBookPublisher() {
+    public  String getNewsSection() {
 
         return mNewsSection;
     }
 
     //getter for the url of the news article
     public String getNewsUrl() {
+
         return mNewsUrl;
     }
 
-    //getter the author(s) of the book
-    public StringBuilder getBookAuthor() {
-
-        return mBookAuthor;
-    }
 }

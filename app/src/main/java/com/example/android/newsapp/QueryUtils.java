@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.booklistapp;
+package com.example.android.newsapp;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -52,7 +52,7 @@ public final class QueryUtils {
     /**
      * Query the Google Books API and return a list of {@link News} objects.
      */
-    public static List<News> fetchBookData(String requestUrl) {
+    public static List<News> fetchNewsData(String requestUrl) {
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -183,17 +183,15 @@ public final class QueryUtils {
                 // Get a single news at position i within the list of newses
                 JSONObject bookEarthquake = bookArray.getJSONObject(i);
 
-                // For a given news, extract the JSONObject associated with the
-                // key called "volumeInfo", which represents a list of all volumeInfo
-                // for that news.
-                //JSONObject volumeInfo = bookEarthquake.getJSONObject("volumeInfo");
+                //extract the value for the key called "webTitle" (title of the article)
+                String title = "";
+                if(bookEarthquake.has("webTitle")) {
+                    title = bookEarthquake.getString("webTitle");
+                } else {
+                    title = "webTitle";
+                }
 
-
-
-                //extract the value for the key called "title"
-                String title = bookEarthquake.getString("webTitle");
-
-                //extract the value for the key called "publisher"
+                //extract the value for the key called "sectionName"
                 String publisher = "";
                 if (bookEarthquake.has("sectionName")) {
                     publisher = bookEarthquake.getString("sectionName");
@@ -203,23 +201,9 @@ public final class QueryUtils {
 
                 String webUrl = bookEarthquake.getString("webUrl");
 
-                //IGNORE THIS FOR NOW
-                JSONArray authorsArray;
-                StringBuilder authors = new StringBuilder();
-                if (bookEarthquake.has("authors")) {
-                    authorsArray = bookEarthquake.getJSONArray("authors");
-                    // Iterate the JSONArray and print the info of JSONObjects
-                    for (int n = 0; n < authorsArray.length(); n++) {
-                        authors.append(System.getProperty("line.separator"));
-                        authors.append(authorsArray.getString(n));
-                    }
-                } else {
-                    authors.append("No Author");
-                }
-
                 // Create a new {@link News} object with the magnitude, location, time,
                 // and url from the JSON response.
-                News news = new News(title, publisher, webUrl, authors);
+                News news = new News(title, publisher, webUrl);
 
                 // Add the new {@link News} to the list of newses.
                 newses.add(news);

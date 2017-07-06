@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.booklistapp;
+package com.example.android.newsapp;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -59,7 +59,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         }
 
         // Perform the network request, parse the response, and extract a list of newses.
-        List<News> newses = QueryUtils.fetchBookData(mUrl);
+        List<News> newses = QueryUtils.fetchNewsData(mUrl);
         return newses;
     }
 }
